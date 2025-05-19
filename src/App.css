@@ -1,0 +1,174 @@
+/* ========================================================================= */
+/*  0 — Tailwind layers                                                      */
+/* ========================================================================= */
+@import "tailwindcss";
+
+/* ========================================================================= */
+/*  1 — Berkeley Mono font-faces                                             */
+/* ========================================================================= */
+@font-face {
+  font-family: "Berkeley Mono";
+  src: url("./assets/fonts/BerkeleyMono/BerkeleyMono-Regular.otf")
+    format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Berkeley Mono";
+  src: url("./assets/fonts/BerkeleyMono/BerkeleyMono-Oblique.otf")
+    format("opentype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Berkeley Mono";
+  src: url("./assets/fonts/BerkeleyMono/BerkeleyMono-Bold.otf")
+    format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Berkeley Mono";
+  src: url("./assets/fonts/BerkeleyMono/BerkeleyMono-Bold-Oblique.otf")
+    format("opentype");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* ========================================================================= */
+/*  2 — Theme variables (Tailwind v4 autodetects these)                      */
+/* ========================================================================= */
+@theme {
+  /* ------------------ Fonts ------------------ */
+  --font-mono:
+    "Berkeley Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", monospace;
+
+  /* ------------------ Palette ---------------- */
+  --color-bg: #000000;
+  --color-fg: #ffffff;
+
+  --color-primary: #ffb300; /* amber          */
+  --color-secondary: #ff5722; /* deep-orange    */
+  --color-accent: #ab47bc; /* magenta        */
+
+  --color-success: #00ff00;
+  --color-info: #29b6f6;
+  --color-cyan: #00bcd4;
+  --color-danger: #ff1744;
+
+  /* Helpers */
+  --color-highlight: #0a0a0a;
+  --color-selection: #222222;
+  --color-cursor: var(--color-primary);
+
+  /* Indent-guide tints (optional) */
+  --color-guide-1: #ffb30055;
+  --color-guide-2: #ff572255;
+  --color-guide-3: #ab47bc55;
+}
+
+/* ========================================================================= */
+/*  3 — Base layer                                                           */
+/* ========================================================================= */
+@layer base {
+  /* Canvas */
+  html,
+  body {
+    @apply h-full w-full overflow-hidden;
+  }
+
+  body {
+    @apply bg-bg text-fg font-mono;
+  }
+
+  /* Selection + cursor */
+  ::selection {
+    background: var(--color-selection);
+    color: var(--color-fg);
+  }
+  input,
+  textarea,
+  [contenteditable] {
+    caret-color: var(--color-cursor);
+  }
+
+  /* Each direct <section> under <body> is a slide */
+  body > section {
+    @apply h-screen w-screen flex flex-col items-center justify-center
+           snap-start snap-always flex-shrink-0;
+  }
+
+  /* Quick slide backgrounds */
+  body > section.bg-dark {
+    @apply bg-bg text-fg;
+  }
+  body > section.bg-light {
+    @apply bg-fg text-bg;
+  }
+  body > section.bg-brand {
+    @apply bg-primary text-bg;
+  }
+}
+
+/* ========================================================================= */
+/*  4 — Components (slide typography, buttons, …)                            */
+/* ========================================================================= */
+@layer components {
+  /* Typographic scales tuned for projectors */
+  .h0 {
+    @apply text-7xl font-bold tracking-tight text-primary;
+  }
+  .h1 {
+    @apply text-5xl font-bold tracking-tight;
+  }
+  .h2 {
+    @apply text-3xl font-semibold;
+  }
+  .h3 {
+    @apply text-2xl font-medium;
+  }
+
+  .bullet-list {
+    @apply list-disc list-inside space-y-2 text-xl leading-snug;
+  }
+
+  /* Optional button helpers */
+  .btn-primary {
+    @apply bg-primary text-bg rounded rounded-lg px-4 py-2 font-semibold
+           hover:bg-secondary transition-colors;
+  }
+}
+
+/* ========================================================================= */
+/*  5 — Utilities (simple slide fade)                                        */
+/* ========================================================================= */
+@layer utilities {
+  .slide-enter {
+    animation: fade-in 250ms ease-out both;
+  }
+  .slide-exit {
+    animation: fade-out 250ms ease-in both;
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes fade-out {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+}
