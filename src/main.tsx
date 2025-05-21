@@ -19,6 +19,7 @@ import { SlideEight } from "./slides/Eight";
 import { SlideNine } from "./slides/Nine";
 import { SlideTen } from "./slides/Ten";
 import { SlideEleven } from "./slides/Eleven";
+import { SlideTwelve } from "./slides/Twelve";
 
 const slides = [
   () => <SlideOne />,
@@ -32,6 +33,7 @@ const slides = [
   () => <SlideNine />,
   () => <SlideTen />,
   () => <SlideEleven />,
+  () => <SlideTwelve/>
 ];
 
 /* ------------------------------------------------------------------ */
