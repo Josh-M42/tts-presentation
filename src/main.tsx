@@ -7,34 +7,11 @@ import {
   useLocation,
 } from "react-router";
 
-import "./App.css"; /* <-- the file above */
-import { SlideOne } from "./slides/One";
-import { SlideTwo } from "./slides/Two";
-import { SlideThree } from "./slides/Three";
-import { SlideFour } from "./slides/Four";
-import { SlideFive } from "./slides/Five";
-import { SlideSix } from "./slides/Six";
-import { SlideSeven } from "./slides/Seven";
-import { SlideEight } from "./slides/Eight";
-import { SlideNine } from "./slides/Nine";
-import { SlideTen } from "./slides/Ten";
-import { SlideEleven } from "./slides/Eleven";
-import { SlideTwelve } from "./slides/Twelve";
+import "./App.css";
+import { ChatterboxPresentation } from "./presentations/chatterbox";
 
-const slides = [
-  () => <SlideOne />,
-  () => <SlideTwo />,
-  () => <SlideThree />,
-  () => <SlideFour />,
-  () => <SlideFive />,
-  () => <SlideSix />,
-  () => <SlideSeven />,
-  () => <SlideEight />,
-  () => <SlideNine />,
-  () => <SlideTen />,
-  () => <SlideEleven />,
-  () => <SlideTwelve/>
-];
+// You can easily switch presentations by importing a different one
+const slides = ChatterboxPresentation;
 
 /* ------------------------------------------------------------------ */
 /* Component that sets up key-handling + renders the current slide    */
