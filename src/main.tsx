@@ -8,10 +8,18 @@ import {
 } from "react-router";
 
 import "./App.css";
-import { ChatterboxPresentation } from "./presentations/chatterbox";
+import { TitleSlide } from "./components/slides";
 
-// You can easily switch presentations by importing a different one
-const slides = ChatterboxPresentation;
+// Import your presentation here
+// Example: import { MyPresentation } from "./presentations/my-presentation";
+
+// For now, showing a placeholder slide
+const slides = [
+  () => <TitleSlide 
+    title="Welcome" 
+    subtitle="Create your presentation by importing it above"
+  />
+];
 
 /* ------------------------------------------------------------------ */
 /* Component that sets up key-handling + renders the current slide    */

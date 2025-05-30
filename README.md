@@ -1,54 +1,145 @@
-# React + TypeScript + Vite
+# TTS Presentation System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React-based presentation framework for the weekly TTS (Text-to-Speech) presentations. Built with React 19, TypeScript, Vite, and Tailwind CSS v4.
 
-Currently, two official plugins are available:
+## 🚀 Quick Start
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```bash
+npm install
+npm run dev      # Start development server
+npm run build    # Build for production
+npm run preview  # Preview production build
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 📁 Project Structure
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
 ```
+src/
+├── components/slides/   # Reusable slide components
+│   ├── TitleSlide.tsx
+│   ├── BulletSlide.tsx
+│   ├── CodeSlide.tsx
+│   ├── ComparisonSlide.tsx
+│   ├── ImageSlide.tsx
+│   └── QASlide.tsx
+├── presentations/       # Individual presentations
+│   └── example.tsx     # Example presentation template
+└── main.tsx            # Main app entry point
+```
+
+## 🎯 Branch Strategy
+
+- **`main`** - Component library only (this branch)
+- **`may-30-chatterbox`** - Chatterbox TTS presentation (May 30, 2025)
+- Create new branches for each weekly presentation
+
+## 📝 Creating a New Presentation
+
+1. **Create a new branch from main:**
+   ```bash
+   git checkout main
+   git pull
+   git checkout -b month-day-topic
+   ```
+
+2. **Create your presentation file** in `src/presentations/`:
+   ```tsx
+   import { TitleSlide, BulletSlide, CodeSlide } from '../components/slides';
+   
+   export const MyPresentation = [
+     () => <TitleSlide title="My Title" subtitle="My Subtitle" />,
+     () => <BulletSlide title="Points" bullets={["Point 1", "Point 2"]} />,
+     // Add more slides...
+   ];
+   ```
+
+3. **Update** `src/main.tsx` to import your presentation:
+   ```tsx
+   import { MyPresentation } from "./presentations/my-presentation";
+   const slides = MyPresentation;
+   ```
+
+4. **Run the presentation:**
+   ```bash
+   npm run dev
+   ```
+
+## 🎨 Available Slide Components
+
+### TitleSlide
+```tsx
+<TitleSlide 
+  title="Main Title" 
+  subtitle="Optional Subtitle"
+  theme="brand" // 'brand' | 'dark' | 'light'
+/>
+```
+
+### BulletSlide
+```tsx
+<BulletSlide
+  title="Slide Title"
+  bullets={["Point 1", "Point 2", "Point 3"]}
+  theme="dark" // 'dark' | 'light'
+/>
+```
+
+### CodeSlide
+```tsx
+<CodeSlide
+  title="Code Example"
+  code={`function hello() {
+    return "world";
+  }`}
+  language="javascript"
+  theme="dark"
+/>
+```
+
+### ComparisonSlide
+```tsx
+<ComparisonSlide
+  title="Comparison"
+  leftTitle="Option A"
+  leftItems={["Feature 1", "Feature 2"]}
+  rightTitle="Option B"
+  rightItems={["Feature 1", "Feature 2"]}
+  theme="dark"
+/>
+```
+
+### ImageSlide
+```tsx
+<ImageSlide
+  title="Optional Title"
+  imageUrl="/path/to/image.png"
+  caption="Optional caption"
+  theme="dark"
+/>
+```
+
+### QASlide
+```tsx
+<QASlide theme="brand" />
+```
+
+## ⌨️ Navigation
+
+- **→** or **Enter**: Next slide
+- **←** or **Backspace**: Previous slide
+- **Direct URL**: `/0`, `/1`, `/2`... for specific slides
+
+## 🎨 Theming
+
+Built with Tailwind CSS v4 using CSS custom properties:
+- **Colors**: Primary (amber), Secondary (deep orange), Accent (magenta)
+- **Font**: Berkeley Mono
+- **Themes**: `dark`, `light`, `brand`
+
+## 📋 TODO
+
+- [ ] Add transition effects between slides
+- [ ] Support for speaker notes
+- [ ] Export to PDF functionality
+- [ ] Timer/progress indicator
+- [ ] Responsive mobile view
